@@ -2,10 +2,11 @@ from numpy import *
 import matplotlib.pyplot as plt
 
 def maldebrot(size, nmax):
+    counter = [0]
     def ijC(i,j):
         k = float(size) / (nmax-1)
-        x = k*i - size
-        y = k*j - size
+        x = 2*k*i - size
+        y = 2*k*j - size
         z = x + 1j*y
         return z
 
@@ -13,7 +14,8 @@ def maldebrot(size, nmax):
         z = ijC(i,j)
         color = 0
         c = z
-        while (abs(z) < 2 and color < 150):
+        while (abs(z) < 2 and color < 256):
+            counter[0] = counter[0] + 1
             z = z*z + c
             color += 1
         return color
@@ -24,6 +26,7 @@ def maldebrot(size, nmax):
         for j in range(nmax):
             arr[i][j] = colorize(i,j)
 
+    print counter
     return arr
 
 arr = maldebrot(1, 1000)
